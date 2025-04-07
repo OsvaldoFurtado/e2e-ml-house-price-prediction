@@ -1,6 +1,6 @@
-# ML Project Template
+# End to End ML Project - House Price Prediction
 
-Starter template for your Machine Learning/AI projects.
+Deep Neural Network model with Keras to predict Airbnb prices in NYC and deploy it as REST API using Flask
 
 Features:
 
