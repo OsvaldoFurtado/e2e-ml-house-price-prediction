@@ -1,7 +1,7 @@
 [project]
 name = "prophet"
 version = "0.1.0"
-description = "Description for your ML project"
+description = "Airbnb Price Prediction using Deep Learning"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -9,6 +9,10 @@ dependencies = [
     "fastapi>=0.115.6",
     "pandas>=2.2.3",
     "uvicorn>=0.34.0",
+    "numpy>=2.0.0",
+    "tensorflow>=2.15.0",
+    "scikit-learn>=1.2.2",
+    "joblib>=1.2.0",
 ]
 
 [project.optional-dependencies]
@@ -18,7 +22,9 @@ dev = [
     "pre-commit>=4.0.1",
     "pytest>=8.3.4",
     "ruff>=0.8.3",
-    "pip-tools==7.3.0"
+    "pip-tools==7.3.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.12.0",
 ]
 
 [tool.ruff]

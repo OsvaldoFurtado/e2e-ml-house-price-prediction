@@ -1,36 +1,54 @@
 from enum import Enum
+from typing import Dict, List, Optional, Union
+
+from pydantic import BaseModel, Field
 
 
-class Label(str, Enum):
-    JUST_DO_IT = "just-do-it"
-    STOP = "stop"
+class AirbnbFeatures(BaseModel):
+    latitude: float 
+    longitude: float
+    room_type: str = Field(description="Type of room (e.g., 'Entire home/apt', 'Private room', 'Shared room')")
+    neighbourhood_group: str = Field(description="NYC borough (e.g., 'Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island')")
+    minimum_nights: int = Field(description="Minimum nights required to book")
+    number_of_reviews: int = Field(description="Number of reviews for the listing")
+    calculated_host_listings_count: int = Field(description="Number of listings the host has")
+    availability_365: int = Field(description="Number of days available in a year")
+    
+    class Config:
+        schema_extra = {
+            "example": {
+                "latitude": 40.7456,
+                "longitude": -73.9852,
+                "room_type": "Entire home/apt",
+                "neighbourhood_group": "Manhattan",
+                "minimum_nights": 3,
+                "number_of_reviews": 20,
+                "calculated_host_listings_count": 2,
+                "availability_365": 200
+            }
+        }
 
 
-EXAMPLES = [
-    {"text": "let's launch the project immediately and make progress", "label": Label.JUST_DO_IT},
-    {"text": "we need to evaluate risks before proceeding", "label": Label.STOP},
-    {"text": "take action now and seize the opportunity", "label": Label.JUST_DO_IT},
-    {"text": "wait for additional data and review", "label": Label.STOP},
-    {"text": "start building momentum and achieve goals", "label": Label.JUST_DO_IT},
-    {"text": "careful consideration required at this stage", "label": Label.STOP},
-    {"text": "move forward with implementation today", "label": Label.JUST_DO_IT},
-    {"text": "postpone until we have more information", "label": Label.STOP},
-    {"text": "begin execution of the plan immediately", "label": Label.JUST_DO_IT},
-    {"text": "hold off and assess potential issues", "label": Label.STOP},
-    {"text": "deploy the hotfix to production now to fix critical bug", "label": Label.JUST_DO_IT},
-    {"text": "need more testing coverage before merging pull request", "label": Label.STOP},
-    {"text": "market conditions are perfect lets launch the product", "label": Label.JUST_DO_IT},
-    {"text": "review competitor analysis before pricing strategy change", "label": Label.STOP},
-    {
-        "text": "start the home renovation this weekend while materials are cheap",
-        "label": Label.JUST_DO_IT,
-    },
-    {"text": "get multiple contractor quotes before bathroom remodel", "label": Label.STOP},
-    {"text": "begin new workout routine today no excuses", "label": Label.JUST_DO_IT},
-    {"text": "consult doctor before starting intense training program", "label": Label.STOP},
-    {
-        "text": "invest in emerging market opportunity with strong indicators",
-        "label": Label.JUST_DO_IT,
-    },
-    {"text": "need to research market volatility before large investment", "label": Label.STOP},
-]
+class PriceRange(str, Enum):
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    VERY_HIGH = "very_high"
+
+
+class PricePrediction(BaseModel):
+    price: float = Field(description="Predicted price in USD")
+    price_range: PriceRange = Field(description="Price category")
+    features: AirbnbFeatures = Field(description="Input features used for prediction")
+    
+    @classmethod
+    def categorize_price(cls, price: float) -> PriceRange:
+        """Categorize price into a price range."""
+        if price < 100:
+            return PriceRange.LOW
+        elif price < 200:
+            return PriceRange.MEDIUM
+        elif price < 350:
+            return PriceRange.HIGH
+        else:
+            return PriceRange.VERY_HIGH
