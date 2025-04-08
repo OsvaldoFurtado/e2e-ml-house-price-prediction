@@ -43,6 +43,7 @@ def seed_everything(seed: int = Config.SEED):
     np.random.seed(seed)
     try:
         import tensorflow as tf
+
         tf.random.set_seed(seed)
     except ImportError:
         logger.warning("TensorFlow not found, skipping TF seed setting")

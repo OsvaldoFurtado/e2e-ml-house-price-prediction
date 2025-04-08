@@ -11,9 +11,9 @@ stages:
     outs:
     - path: artefacts/data
       hash: md5
-      md5: 9d70b83109c16f38db9824510d493f2c.dir
-      size: 3111
-      nfiles: 2
+      md5: bc57958be6482d887b70e935be8cb03c.dir
+      size: 2963663
+      nfiles: 3
   train:
     cmd: bin/train
     deps:
@@ -62,9 +62,9 @@ stages:
     deps:
     - path: artefacts/data
       hash: md5
-      md5: 9d70b83109c16f38db9824510d493f2c.dir
-      size: 3111
-      nfiles: 2
+      md5: bc57958be6482d887b70e935be8cb03c.dir
+      size: 2963663
+      nfiles: 3
     - path: bin/train-model
       hash: md5
       md5: 83bd51f7d4faecabed9bbe8e7b171357
@@ -73,21 +73,21 @@ stages:
     outs:
     - path: artefacts/models
       hash: md5
-      md5: 74770eb98dad70f0976dd101194c66a4.dir
-      size: 941
+      md5: bf818359fc0e1da6d140f00c2ffb6602.dir
+      size: 69888
       nfiles: 1
   evaluate:
     cmd: bin/evaluate
     deps:
     - path: artefacts/data
       hash: md5
-      md5: 9d70b83109c16f38db9824510d493f2c.dir
-      size: 3111
-      nfiles: 2
+      md5: bc57958be6482d887b70e935be8cb03c.dir
+      size: 2963663
+      nfiles: 3
     - path: artefacts/models
       hash: md5
-      md5: 74770eb98dad70f0976dd101194c66a4.dir
-      size: 941
+      md5: bf818359fc0e1da6d140f00c2ffb6602.dir
+      size: 69888
       nfiles: 1
     - path: bin/evaluate
       hash: md5
@@ -97,6 +97,6 @@ stages:
     outs:
     - path: artefacts/reports
       hash: md5
-      md5: 12a458ef38ff5f3fe8dcbd0ca9bbe99e.dir
-      size: 17
+      md5: 11d364a48520e2e7364587e265a6f4b2.dir
+      size: 264
       nfiles: 1

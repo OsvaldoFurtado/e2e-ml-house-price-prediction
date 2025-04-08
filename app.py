@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 
 from prophet.config import Config
 from prophet.data import AirbnbFeatures, PricePrediction
@@ -15,7 +14,7 @@ app = FastAPI(
 # Load the model at startup
 model = PricePredictor.load(
     Config.Path.MODELS_DIR / Config.Model.FILE_NAME,
-    Config.Path.TRANSFORMERS_DIR / Config.Model.TRANSFORMER_FILE
+    Config.Path.TRANSFORMERS_DIR / Config.Model.TRANSFORMER_FILE,
 )
 
 
@@ -28,17 +27,15 @@ async def predict(features: AirbnbFeatures):
     try:
         # Convert Pydantic model to dict
         features_dict = features.dict()
-        
+
         # Make prediction
         predicted_price = model.predict(features_dict)
-        
+
         # Create response with prediction and category
         price_range = PricePrediction.categorize_price(predicted_price)
-        
+
         return PricePrediction(
-            price=float(predicted_price),
-            price_range=price_range,
-            features=features
+            price=float(predicted_price), price_range=price_range, features=features
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
